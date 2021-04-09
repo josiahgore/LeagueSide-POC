@@ -4,5 +4,10 @@ default: &default
 
 development:
   <<: *default
-  database: leagueside
+  database: leagueside_dev
+  username: leagueside
+
+test:
+  <<: *default
+  database: leagueside_test
   username: leagueside

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   get '/', to: 'leagues#index'
-  post 'leagues/new'
+  post 'leagues/create'
   get 'leagues/find'
 end

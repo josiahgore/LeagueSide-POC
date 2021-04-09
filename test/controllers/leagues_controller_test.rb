@@ -1,18 +1,20 @@
 require "test_helper"
 
 class LeaguesControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get leagues_index_url
-    assert_response :success
-  end
 
-  test "should get new" do
-    get leagues_new_url
-    assert_response :success
+  test "should post create" do
+    post leagues_create_url, params: {
+      name: 'Test League',
+      latitude: 1.23232,
+      longitude: 2.34324,
+      price_cents: 1234,
+    }
+    assert_response :redirect
   end
 
   test "should get find" do
     get leagues_find_url
     assert_response :success
   end
+
 end
