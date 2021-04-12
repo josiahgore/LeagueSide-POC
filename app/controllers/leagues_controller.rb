@@ -25,8 +25,8 @@ class LeaguesController < ApplicationController
     # If those cases matter cube-based would be better. Or postgis if we want to get fancy.
     distance = "point '(#{long}, #{lat})' <@> point (longitude, latitude)"
     @leagues = League
-        .select("#{League.table_name}.*, point '(#{long}, #{lat})' <@> point (longitude, latitude) AS distance")
-        .where("point '(#{long}, #{lat})' <@> point (longitude, latitude) <= ? AND price_cents <= ?", radius, price_cents)
+        .select("#{League.table_name}.*, #{distance} AS distance")
+        .where("#{distance} <= ? AND price_cents <= ?", radius, price_cents)
         .all
     respond_to do |format|
       msg = { :status => "ok", :leagues => @leagues }
