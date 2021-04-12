@@ -1,46 +1,71 @@
 <h1>Leagues</h1>
 
-<h2>New League</h2>
-
-<%= form_tag("/leagues/create", method: "post") do %>
-  <div class="field">
-    <%= label_tag(:name, "Name") %>
-    <%= text_field_tag :name %>
-  </div>
-  <div class="field">
-    <%= label_tag(:name, "Latitude") %>
-    <%= text_field_tag :latitude %>
-  </div>
-  <div class="field">
-    <%= label_tag(:name, "Longitude") %>
-    <%= text_field_tag :longitude %>
-  </div>
-  <div class="field">
-    <%= label_tag(:name, "Price in Cents") %>
-    <%= text_field_tag :price_cents %>
-  </div>
-  <div class="submit">
-    <%= submit_tag("Submit") %>
-  </div>
-<% end %>
-
-<div style="margin-top:5rem">
-  <table>
-    <thead>
-    <tr>
-      <td>Name</td>
-      <td>Lat/Long</td>
-      <td>Price</td>
-    </tr>
-    </thead>
-    <tbody>
-    <% @leagues.each do |league| %>
-      <tr>
-        <td><%= league.name %></td>
-        <td>(<%= league.latitude %>, <%= league.longitude %>)</td>
-        <td>$<%= (league.price_cents || 0) / 100.0 %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+<h3>New League</h3>
+<div class="create-league">
+  <%= form_tag("/leagues/create", method: "post") do %>
+    <div class="field name">
+      <%= label_tag(:name, "Name") %>
+      <%= text_field_tag :name %>
+    </div>
+    <div class="field latitude">
+      <%= label_tag(:name, "Latitude") %>
+      <%= text_field_tag :latitude %>
+    </div>
+    <div class="field longitude">
+      <%= label_tag(:name, "Longitude") %>
+      <%= text_field_tag :longitude %>
+    </div>
+    <div class="field price_cents">
+      <%= label_tag(:name, "Price in Cents") %>
+      <%= text_field_tag :price_cents %>
+    </div>
+    <div class="submit">
+      <%= submit_tag("Submit") %>
+    </div>
+  <% end %>
 </div>
+
+<h3>Find League</h3>
+<div class="find-league">
+  <%= form_tag("/leagues/find.json", method: "get") do %>
+    <div class="field latitude">
+      <%= label_tag(:latitude, "Latitude") %>
+      <%= text_field_tag :latitude %>
+    </div>
+    <div class="field longitude">
+      <%= label_tag(:longitude, "Longitude") %>
+      <%= text_field_tag :longitude %>
+    </div>
+    <div class="field radius">
+      <%= label_tag(:radius, "Radius (mi)") %>
+      <%= number_field_tag :radius %>
+    </div>
+    <div class="field price_cents">
+      <%= label_tag(:price_cents, "Price in Cents") %>
+      <%= number_field_tag :price_cents %>
+    </div>
+    <div class="submit">
+      <%= submit_tag("Search") %>
+    </div>
+  <% end %>
+</div>
+
+<h3>All Leagues</h3>
+<table>
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Lat/Long</td>
+    <td>Price</td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @leagues.each do |league| %>
+    <tr>
+      <td><%= league.name %></td>
+      <td>(<%= league.latitude %>, <%= league.longitude %>)</td>
+      <td>$<%= (league.price_cents || 0) / 100.0 %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

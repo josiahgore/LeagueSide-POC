@@ -1,13 +1,16 @@
 default: &default
-  adapter: sqlite3
-  database: ":memory:"
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
 
 development:
   <<: *default
   database: leagueside_dev
   username: leagueside
+  password: leagueside
 
 test:
   <<: *default
   database: leagueside_test
   username: leagueside
+  password: leagueside

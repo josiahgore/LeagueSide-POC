@@ -1,3 +1,16 @@
 // Place all the styles related to the Leagues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.create-league,
+.find-league
+{
+  margin-bottom: 2rem;
+
+  .field {
+    margin-bottom: 1rem;
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}

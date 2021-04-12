@@ -8,6 +8,42 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+          // always pass csrf tokens on ajax calls
+          $.ajaxSetup({
+              headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
+          });
+          $('.create-league form').submit(function(evt) {
+              evt.preventDefault();
+              $.post('/leagues/create.json', {
+                  name: $('.create-league .name input').val(),
+                  latitude: $('.create-league .latitude input').val(),
+                  longitude: $('.create-league .longitude input').val(),
+                  price_cents: $('.create-league .price_cents input').val(),
+              }).done(function(resp) {
+                  console.log('create response', resp);
+              }).always(function() {
+                  $('.create-league .submit input').attr('disabled', false);
+              });
+          });
+          $('.find-league form').submit(function(evt) {
+              evt.preventDefault();
+              $.get('/leagues/find.json', {
+                  latitude: $('.find-league .latitude input').val(),
+                  longitude: $('.find-league .longitude input').val(),
+                  radius: $('.find-league .radius input').val(),
+                  price_cents: $('.find-league .price_cents input').val(),
+              }).done(function(resp) {
+                  console.log('find response', resp);
+              }).always(function() {
+                  $('.find-league .submit input').attr('disabled', false);
+              })
+          });
+      });
+    </script>
   </head>
 
   <body>
